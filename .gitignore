@@ -1,5 +1,4 @@
 data
-*.ui
 *.exe
 __pycache__/
 .env
