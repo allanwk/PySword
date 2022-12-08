@@ -59,9 +59,14 @@ class Ui_MainWindow(object):
     def showFrame(self, frameName):
         for name, frame in self.frames.items():
             if name == frameName:
-                frame.show()
+                frame["frame"].show()
+                if frame["callback"] is not None:
+                    frame["callback"]()
             else:
-                frame.hide()
+                frame["frame"].hide()
+    
+    def registerFrame(self, name, frame, callback = None):
+        self.frames[name] = {"frame": frame, "callback": callback}
 
     # ----------------UI----------------
 
@@ -86,7 +91,6 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
         self.showFrame("home")
-        self.updateDriveList()
 
     def setupHomeUI(self, MainWindow):
         self.home_frame = QtWidgets.QFrame(self.centralwidget)
@@ -131,7 +135,7 @@ class Ui_MainWindow(object):
         self.home_label.setText(_translate(
             "PySword", "<html><head/><body><p align=\"center\">BEM VINDO</p></body></html>"))
 
-        self.frames["home"] = self.home_frame
+        self.registerFrame("home", self.home_frame, self.updateDriveList)
 
     def setupLoginUI(self, MainWindow):
         self.login_frame = QtWidgets.QFrame(self.centralwidget)
@@ -186,7 +190,7 @@ class Ui_MainWindow(object):
         self.login_lineEdit.setText(_translate("PySword", "USUÁRIO"))
         self.login_lineEdit_2.setText(_translate("PySword", "SENHA"))
 
-        self.frames["login"] = self.login_frame
+        self.registerFrame("login", self.login_frame)
 
     def setupCadastroUI(self, MainWindow):
         self.cadastro_frame_2 = QtWidgets.QFrame(self.centralwidget)
@@ -254,7 +258,7 @@ class Ui_MainWindow(object):
         self.cadastro_lineEdit_3.setText(
             _translate("PySword", "REPETIR SENHA"))
 
-        self.frames["cadastro"] = self.cadastro_frame_2
+        self.registerFrame("cadastro", self.cadastro_frame_2)
 
     def setupSelectDriveUI(self, MainWindow):
         self.selectdrive_frame_2 = QtWidgets.QFrame(self.centralwidget)
@@ -299,7 +303,7 @@ class Ui_MainWindow(object):
         self.selectdrive_label_4.setText(_translate(
             "PySword", "<html><head/><body><p align=\"center\">CADASTRO</p></body></html>"))
 
-        self.frames["selectDrive"] = self.selectdrive_frame_2
+        self.registerFrame("selectDrive", self.selectdrive_frame_2)
 
     def setupKeyGeneratedUI(self, MainWindow):
         self.keygenerated_frame_3 = QtWidgets.QFrame(self.centralwidget)
@@ -350,7 +354,7 @@ class Ui_MainWindow(object):
         self.keygenerated_label_2.setText(
             _translate("PySword", "CHAVE CRIADA COM SUCESSO"))
 
-        self.frames["keyGenerated"] = self.keygenerated_frame_3
+        self.registerFrame("keyGenerated", self.keygenerated_frame_3)
 
     def setupGetKeyUI(self, MainWindow):
         self.getKey_frame_2 = QtWidgets.QFrame(self.centralwidget)
@@ -398,7 +402,7 @@ class Ui_MainWindow(object):
         self.getKey_label.setPixmap(QPixmap(os.path.join(
             os.path.dirname(__file__), 'assets/pendrive.png')))
 
-        self.frames["getKey"] = self.getKey_frame_2
+        self.registerFrame("getKey", self.getKey_frame_2)
 
     def setupMainUI(self, MainWindow):
         self.main_frame_2 = QtWidgets.QFrame(self.centralwidget)
@@ -444,7 +448,7 @@ class Ui_MainWindow(object):
         self.main_pushButton_4.setText(
             _translate("MainWindow", "ADICIONAR CONTA"))
 
-        self.frames["main"] = self.main_frame_2
+        self.registerFrame("main", self.main_frame_2, self.getPasswords)
 
     def setupNewPasswordUI(self, MainWindow):
         self.newPassword_frame_2 = QtWidgets.QFrame(self.centralwidget)
@@ -516,7 +520,8 @@ class Ui_MainWindow(object):
         self.newPassword_pushButton_5.setText(
             _translate("MainWindow", "GERAR SENHA"))
 
-        self.frames["newPassword"] = self.newPassword_frame_2
+        #self.frames["newPassword"] = self.newPassword_frame_2
+        self.registerFrame("newPassword", self.newPassword_frame_2)
 
     # ----------------EVENTOS----------------
 
@@ -539,7 +544,7 @@ class Ui_MainWindow(object):
         self.getKey_pushButton_4.clicked.connect(self.verifyKey)
 
         # chave gerada
-        self.keygenerated_pushButton_5.clicked.connect(self.openMain)
+        self.keygenerated_pushButton_5.clicked.connect(lambda: self.showFrame("main"))
 
         # senhas
         self.main_pushButton_4.clicked.connect(
@@ -587,11 +592,7 @@ class Ui_MainWindow(object):
         response = self.api.savePassword(encrypted)
         if len(response) > 0:
             if "hash" in response[0]:
-                self.openMain()
-    
-    def openMain(self):
-        self.showFrame("main")
-        self.getPasswords()
+                self.showFrame("main")
 
     def getPasswords(self):
         response = self.api.getPasswords()
@@ -668,7 +669,7 @@ class Ui_MainWindow(object):
                         try:
                             f = Fernet(key)
                             self.key = key
-                            self.openMain()
+                            self.showFrame("main")
                         except Exception as e:
                             self.showMessageDialogError("Chave inválida")
         if self.key is None:
