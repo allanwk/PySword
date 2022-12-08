@@ -52,6 +52,8 @@ class Ui_MainWindow(object):
         self.setupSelectDriveUI(MainWindow)
         self.setupKeyGeneratedUI(MainWindow)
         self.setupGetKeyUI(MainWindow)
+        self.setupMainUI(MainWindow)
+        self.setupNewPasswordUI(MainWindow)
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -338,38 +340,138 @@ class Ui_MainWindow(object):
         self.getKey_statusbar.setObjectName("statusbar")
 
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("PySword", "PySword"))
-        self.getKey_label_3.setText(_translate("PySword", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
-        self.getKey_pushButton_4.setText(_translate("PySword", "VERIFICAR CHAVE"))
-        self.getKey_label_4.setText(_translate("PySword", "<html><head/><body><p align=\"center\">LOGIN</p></body></html>"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.getKey_label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.getKey_pushButton_4.setText(_translate("MainWindow", "VERIFICAR CHAVE"))
+        self.getKey_label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">LOGIN</p></body></html>"))
         self.getKey_label.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__), 'assets/pendrive.png')))
 
         self.frames["getKey"] = self.getKey_frame_2
+    
+    def setupMainUI(self, MainWindow):
+        self.main_frame_2 = QtWidgets.QFrame(self.centralwidget)
+        self.main_frame_2.setEnabled(True)
+        self.main_frame_2.setGeometry(QtCore.QRect(10, 10, 201, 271))
+        self.main_frame_2.setAutoFillBackground(False)
+        self.main_frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.main_frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.main_frame_2.setObjectName("frame_2")
+        self.main_label_3 = QtWidgets.QLabel(self.main_frame_2)
+        self.main_label_3.setGeometry(QtCore.QRect(0, 0, 71, 21))
+        self.main_label_3.setObjectName("label_3")
+        self.main_label_5 = QtWidgets.QLabel(self.main_frame_2)
+        self.main_label_5.setGeometry(QtCore.QRect(130, 0, 71, 21))
+        self.main_label_5.setObjectName("label_5")
+        self.main_pushButton_4 = QtWidgets.QPushButton(self.main_frame_2)
+        self.main_pushButton_4.setGeometry(QtCore.QRect(0, 240, 201, 31))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.main_pushButton_4.setFont(font)
+        self.main_pushButton_4.setObjectName("pushButton_4")
+        self.main_tableWidget = QtWidgets.QTableWidget(self.main_frame_2)
+        self.main_tableWidget.setGeometry(QtCore.QRect(0, 30, 201, 201))
+        self.main_tableWidget.setObjectName("tableWidget")
+        self.main_tableWidget.setColumnCount(0)
+        self.main_tableWidget.setRowCount(0)
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.main_statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.main_statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.main_statusbar)
+
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.main_label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.main_label_5.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">USUÁRIO</span></p></body></html>"))
+        self.main_pushButton_4.setText(_translate("MainWindow", "ADICIONAR CONTA"))
+
+        self.frames["main"] = self.main_frame_2
+    
+    def setupNewPasswordUI(self, MainWindow):
+        self.newPassword_frame_2 = QtWidgets.QFrame(self.centralwidget)
+        self.newPassword_frame_2.setEnabled(True)
+        self.newPassword_frame_2.setGeometry(QtCore.QRect(10, 10, 201, 261))
+        self.newPassword_frame_2.setAutoFillBackground(False)
+        self.newPassword_frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.newPassword_frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.newPassword_frame_2.setObjectName("frame_2")
+        self.newPassword_label_3 = QtWidgets.QLabel(self.newPassword_frame_2)
+        self.newPassword_label_3.setGeometry(QtCore.QRect(0, 0, 71, 21))
+        self.newPassword_label_3.setObjectName("label_3")
+        self.newPassword_pushButton_4 = QtWidgets.QPushButton(self.newPassword_frame_2)
+        self.newPassword_pushButton_4.setGeometry(QtCore.QRect(40, 230, 131, 31))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.newPassword_pushButton_4.setFont(font)
+        self.newPassword_pushButton_4.setObjectName("pushButton_4")
+        self.newPassword_label_4 = QtWidgets.QLabel(self.newPassword_frame_2)
+        self.newPassword_label_4.setGeometry(QtCore.QRect(0, 30, 211, 31))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.newPassword_label_4.setFont(font)
+        self.newPassword_label_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.newPassword_label_4.setObjectName("label_4")
+        self.newPassword_lineEdit_2 = QtWidgets.QLineEdit(self.newPassword_frame_2)
+        self.newPassword_lineEdit_2.setGeometry(QtCore.QRect(30, 130, 151, 21))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.newPassword_lineEdit_2.setFont(font)
+        self.newPassword_lineEdit_2.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.newPassword_lineEdit_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.newPassword_lineEdit_2.setClearButtonEnabled(False)
+        self.newPassword_lineEdit_2.setObjectName("lineEdit_2")
+        self.newPassword_lineEdit = QtWidgets.QLineEdit(self.newPassword_frame_2)
+        self.newPassword_lineEdit.setGeometry(QtCore.QRect(30, 100, 151, 21))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.newPassword_lineEdit.setFont(font)
+        self.newPassword_lineEdit.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.newPassword_lineEdit.setAlignment(QtCore.Qt.AlignCenter)
+        self.newPassword_lineEdit.setObjectName("lineEdit")
+        self.newPassword_pushButton_5 = QtWidgets.QPushButton(self.newPassword_frame_2)
+        self.newPassword_pushButton_5.setGeometry(QtCore.QRect(30, 160, 151, 21))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.newPassword_pushButton_5.setFont(font)
+        self.newPassword_pushButton_5.setObjectName("pushButton_5")
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.newPassword_statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.newPassword_statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.newPassword_statusbar)
+
+        _translate = QtCore.QCoreApplication.translate
+        self.newPassword_label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.newPassword_pushButton_4.setText(_translate("MainWindow", "SALVAR"))
+        self.newPassword_label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">ADICIONAR CONTA</p></body></html>"))
+        self.newPassword_lineEdit_2.setText(_translate("MainWindow", "SENHA"))
+        self.newPassword_lineEdit.setText(_translate("MainWindow", "CONTA"))
+        self.newPassword_pushButton_5.setText(_translate("MainWindow", "GERAR SENHA"))
+
+        self.frames["newPassword"] = self.newPassword_frame_2
+
 
     #----------------EVENTOS----------------
-
     def setupEvents(self):
-        self.setupHomeEvents()
-        self.setupRegisterEvents()
-        self.setupLoginEvents()
-        self.setupDriveSelectEvents()
-        self.setupVerifyKeyEvents()
-
-    def setupHomeEvents(self):
+        #home
         self.home_pushButton_2.clicked.connect(lambda: self.showFrame("cadastro"))
         self.home_pushButton.clicked.connect(lambda: self.showFrame("login"))
-    
-    def setupRegisterEvents(self):
+
+        #cadastro
         self.cadastro_pushButton_4.clicked.connect(self.register)
-    
-    def setupLoginEvents(self):
+
+        #login
         self.login_pushButton_4.clicked.connect(self.login)
-    
-    def setupDriveSelectEvents(self):
+
+        #selecionar dispositivo
         self.selectdrive_pushButton_4.clicked.connect(self.generateKey)
 
-    def setupVerifyKeyEvents(self):
+        #verificar chave
         self.getKey_pushButton_4.clicked.connect(self.verifyKey)
+
+        #chave gerada
+        self.keygenerated_pushButton_5.clicked.connect(lambda: self.showFrame("main"))
+
+        #nova senha
+        self.main_pushButton_4.clicked.connect(lambda: self.showFrame("newPassword"))
 
     #----------------METODOS----------------
     def register(self):
@@ -378,6 +480,8 @@ class Ui_MainWindow(object):
         password_verify = self.cadastro_lineEdit_3.text()
         response = self.api.register(email, password)
         if response == "Created with success":
+            _translate = QtCore.QCoreApplication.translate
+            self.main_label_5.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">{}</span></p></body></html>".format(email)))
             self.showMessageDialog("Usuário criado com sucesso")
             self.showFrame("selectDrive")
         elif response == "User already exists":
@@ -391,8 +495,11 @@ class Ui_MainWindow(object):
             self.showMessageDialog("Logado com sucesso")
             self.api.token = response["token"]
             self.showFrame("getKey")
+            _translate = QtCore.QCoreApplication.translate
+            self.main_label_5.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">{}</span></p></body></html>".format(email)))
         else:
             self.showMessageDialog("Falha no login")
+
     
     def updateDriveList(self):
         self.drives = psutil.disk_partitions()
@@ -425,7 +532,6 @@ class Ui_MainWindow(object):
                         self.showFrame("keyGenerated")
                 except Exception as e:
                     self.showMessageDialog("Erro ao gravar chave no dispositivo")
-                    
             else:
                 self.showMessageDialog("Já existe uma chave salva no dispositivo")
     
@@ -441,6 +547,7 @@ class Ui_MainWindow(object):
                         try:
                             f = Fernet(key)
                             self.key = key
+                            self.showFrame("main")
                         except:
                             self.showMessageDialog("Chave inválida")
 
