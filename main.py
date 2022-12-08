@@ -7,6 +7,7 @@ from cryptography.fernet import Fernet
 import os
 import ctypes
 
+
 class Api():
     def __init__(self, baseUrl):
         self.baseUrl = baseUrl
@@ -17,12 +18,13 @@ class Api():
         data = {'email': email, 'password': password}
         response = requests.post(url, json=data)
         return response.json()
-    
+
     def login(self, email, password):
         url = self.baseUrl + '/auth/login'
         data = {'email': email, 'password': password}
         response = requests.post(url, json=data)
         return response.json()
+
 
 class Ui_MainWindow(object):
     def __init__(self):
@@ -35,7 +37,7 @@ class Ui_MainWindow(object):
             else:
                 frame.hide()
 
-    #----------------UI----------------
+    # ----------------UI----------------
 
     def setupUI(self, MainWindow):
         MainWindow.setObjectName("PySword")
@@ -97,12 +99,14 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("PySword", "PySword"))
         self.home_pushButton_2.setText(_translate("PySword", "CADASTRAR"))
-        self.home_label_2.setText(_translate("PySword", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.home_label_2.setText(_translate(
+            "PySword", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
         self.home_pushButton.setText(_translate("PySword", "ENTRAR"))
-        self.home_label.setText(_translate("PySword", "<html><head/><body><p align=\"center\">BEM VINDO</p></body></html>"))
+        self.home_label.setText(_translate(
+            "PySword", "<html><head/><body><p align=\"center\">BEM VINDO</p></body></html>"))
 
         self.frames["home"] = self.home_frame
-    
+
     def setupLoginUI(self, MainWindow):
         self.login_frame = QtWidgets.QFrame(self.centralwidget)
         self.login_frame.setEnabled(True)
@@ -148,14 +152,16 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.login_statusbar)
 
         _translate = QtCore.QCoreApplication.translate
-        self.login_label_3.setText(_translate("PySword", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.login_label_3.setText(_translate(
+            "PySword", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
         self.login_pushButton_4.setText(_translate("PySword", "ENTRAR"))
-        self.login_label_4.setText(_translate("PySword", "<html><head/><body><p align=\"center\">LOGIN</p></body></html>"))
+        self.login_label_4.setText(_translate(
+            "PySword", "<html><head/><body><p align=\"center\">LOGIN</p></body></html>"))
         self.login_lineEdit.setText(_translate("PySword", "USUÁRIO"))
         self.login_lineEdit_2.setText(_translate("PySword", "SENHA"))
 
         self.frames["login"] = self.login_frame
-    
+
     def setupCadastroUI(self, MainWindow):
         self.cadastro_frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.cadastro_frame_2.setEnabled(True)
@@ -167,7 +173,8 @@ class Ui_MainWindow(object):
         self.cadastro_label_3 = QtWidgets.QLabel(self.cadastro_frame_2)
         self.cadastro_label_3.setGeometry(QtCore.QRect(0, 0, 71, 21))
         self.cadastro_label_3.setObjectName("label_3")
-        self.cadastro_pushButton_4 = QtWidgets.QPushButton(self.cadastro_frame_2)
+        self.cadastro_pushButton_4 = QtWidgets.QPushButton(
+            self.cadastro_frame_2)
         self.cadastro_pushButton_4.setGeometry(QtCore.QRect(40, 230, 131, 31))
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -211,15 +218,18 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.cadastro_statusbar)
         _translate = QtCore.QCoreApplication.translate
 
-        self.cadastro_label_3.setText(_translate("PySword", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.cadastro_label_3.setText(_translate(
+            "PySword", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
         self.cadastro_pushButton_4.setText(_translate("PySword", "CADASTRAR"))
-        self.cadastro_label_4.setText(_translate("PySword", "<html><head/><body><p align=\"center\">CADASTRO</p></body></html>"))
+        self.cadastro_label_4.setText(_translate(
+            "PySword", "<html><head/><body><p align=\"center\">CADASTRO</p></body></html>"))
         self.cadastro_lineEdit_2.setText(_translate("PySword", "SENHA"))
         self.cadastro_lineEdit.setText(_translate("PySword", "USUÁRIO"))
-        self.cadastro_lineEdit_3.setText(_translate("PySword", "REPETIR SENHA"))
+        self.cadastro_lineEdit_3.setText(
+            _translate("PySword", "REPETIR SENHA"))
 
         self.frames["cadastro"] = self.cadastro_frame_2
-    
+
     def setupSelectDriveUI(self, MainWindow):
         self.selectdrive_frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.selectdrive_frame_2.setEnabled(True)
@@ -231,8 +241,10 @@ class Ui_MainWindow(object):
         self.selectdrive_label_3 = QtWidgets.QLabel(self.selectdrive_frame_2)
         self.selectdrive_label_3.setGeometry(QtCore.QRect(0, 0, 71, 21))
         self.selectdrive_label_3.setObjectName("label_3")
-        self.selectdrive_pushButton_4 = QtWidgets.QPushButton(self.selectdrive_frame_2)
-        self.selectdrive_pushButton_4.setGeometry(QtCore.QRect(30, 230, 151, 31))
+        self.selectdrive_pushButton_4 = QtWidgets.QPushButton(
+            self.selectdrive_frame_2)
+        self.selectdrive_pushButton_4.setGeometry(
+            QtCore.QRect(30, 230, 151, 31))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.selectdrive_pushButton_4.setFont(font)
@@ -244,7 +256,8 @@ class Ui_MainWindow(object):
         self.selectdrive_label_4.setFont(font)
         self.selectdrive_label_4.setAlignment(QtCore.Qt.AlignCenter)
         self.selectdrive_label_4.setObjectName("label_4")
-        self.selectdrive_listWidget = QtWidgets.QListWidget(self.selectdrive_frame_2)
+        self.selectdrive_listWidget = QtWidgets.QListWidget(
+            self.selectdrive_frame_2)
         self.selectdrive_listWidget.setGeometry(QtCore.QRect(10, 70, 181, 151))
         self.selectdrive_listWidget.setObjectName("listWidget")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -253,9 +266,12 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.selectdrive_statusbar)
 
         _translate = QtCore.QCoreApplication.translate
-        self.selectdrive_label_3.setText(_translate("PySword", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
-        self.selectdrive_pushButton_4.setText(_translate("PySword", "CRIAR CHAVE"))
-        self.selectdrive_label_4.setText(_translate("PySword", "<html><head/><body><p align=\"center\">CADASTRO</p></body></html>"))
+        self.selectdrive_label_3.setText(_translate(
+            "PySword", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.selectdrive_pushButton_4.setText(
+            _translate("PySword", "CRIAR CHAVE"))
+        self.selectdrive_label_4.setText(_translate(
+            "PySword", "<html><head/><body><p align=\"center\">CADASTRO</p></body></html>"))
 
         self.frames["selectDrive"] = self.selectdrive_frame_2
 
@@ -270,8 +286,10 @@ class Ui_MainWindow(object):
         self.keygenerated_label_5 = QtWidgets.QLabel(self.keygenerated_frame_3)
         self.keygenerated_label_5.setGeometry(QtCore.QRect(0, 0, 71, 21))
         self.keygenerated_label_5.setObjectName("label_5")
-        self.keygenerated_pushButton_5 = QtWidgets.QPushButton(self.keygenerated_frame_3)
-        self.keygenerated_pushButton_5.setGeometry(QtCore.QRect(30, 230, 151, 31))
+        self.keygenerated_pushButton_5 = QtWidgets.QPushButton(
+            self.keygenerated_frame_3)
+        self.keygenerated_pushButton_5.setGeometry(
+            QtCore.QRect(30, 230, 151, 31))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.keygenerated_pushButton_5.setFont(font)
@@ -296,14 +314,18 @@ class Ui_MainWindow(object):
 
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("PySword", "PySword"))
-        self.keygenerated_label_5.setText(_translate("PySword", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.keygenerated_label_5.setText(_translate(
+            "PySword", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
         self.keygenerated_pushButton_5.setText(_translate("PySword", "ENTRAR"))
-        self.keygenerated_label_6.setText(_translate("PySword", "<html><head/><body><p align=\"center\">CADASTRO</p></body></html>"))
-        self.keygenerated_label.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__), 'assets/check.png')))
-        self.keygenerated_label_2.setText(_translate("PySword", "CHAVE CRIADA COM SUCESSO"))
+        self.keygenerated_label_6.setText(_translate(
+            "PySword", "<html><head/><body><p align=\"center\">CADASTRO</p></body></html>"))
+        self.keygenerated_label.setPixmap(
+            QPixmap(os.path.join(os.path.dirname(__file__), 'assets/check.png')))
+        self.keygenerated_label_2.setText(
+            _translate("PySword", "CHAVE CRIADA COM SUCESSO"))
 
         self.frames["keyGenerated"] = self.keygenerated_frame_3
-    
+
     def setupGetKeyUI(self, MainWindow):
         self.getKey_frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.getKey_frame_2.setEnabled(True)
@@ -341,13 +363,17 @@ class Ui_MainWindow(object):
 
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.getKey_label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
-        self.getKey_pushButton_4.setText(_translate("MainWindow", "VERIFICAR CHAVE"))
-        self.getKey_label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">LOGIN</p></body></html>"))
-        self.getKey_label.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__), 'assets/pendrive.png')))
+        self.getKey_label_3.setText(_translate(
+            "MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.getKey_pushButton_4.setText(
+            _translate("MainWindow", "VERIFICAR CHAVE"))
+        self.getKey_label_4.setText(_translate(
+            "MainWindow", "<html><head/><body><p align=\"center\">LOGIN</p></body></html>"))
+        self.getKey_label.setPixmap(QPixmap(os.path.join(
+            os.path.dirname(__file__), 'assets/pendrive.png')))
 
         self.frames["getKey"] = self.getKey_frame_2
-    
+
     def setupMainUI(self, MainWindow):
         self.main_frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.main_frame_2.setEnabled(True)
@@ -380,12 +406,15 @@ class Ui_MainWindow(object):
 
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.main_label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
-        self.main_label_5.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">USUÁRIO</span></p></body></html>"))
-        self.main_pushButton_4.setText(_translate("MainWindow", "ADICIONAR CONTA"))
+        self.main_label_3.setText(_translate(
+            "MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.main_label_5.setText(_translate(
+            "MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">USUÁRIO</span></p></body></html>"))
+        self.main_pushButton_4.setText(
+            _translate("MainWindow", "ADICIONAR CONTA"))
 
         self.frames["main"] = self.main_frame_2
-    
+
     def setupNewPasswordUI(self, MainWindow):
         self.newPassword_frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.newPassword_frame_2.setEnabled(True)
@@ -397,8 +426,10 @@ class Ui_MainWindow(object):
         self.newPassword_label_3 = QtWidgets.QLabel(self.newPassword_frame_2)
         self.newPassword_label_3.setGeometry(QtCore.QRect(0, 0, 71, 21))
         self.newPassword_label_3.setObjectName("label_3")
-        self.newPassword_pushButton_4 = QtWidgets.QPushButton(self.newPassword_frame_2)
-        self.newPassword_pushButton_4.setGeometry(QtCore.QRect(40, 230, 131, 31))
+        self.newPassword_pushButton_4 = QtWidgets.QPushButton(
+            self.newPassword_frame_2)
+        self.newPassword_pushButton_4.setGeometry(
+            QtCore.QRect(40, 230, 131, 31))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.newPassword_pushButton_4.setFont(font)
@@ -410,7 +441,8 @@ class Ui_MainWindow(object):
         self.newPassword_label_4.setFont(font)
         self.newPassword_label_4.setAlignment(QtCore.Qt.AlignCenter)
         self.newPassword_label_4.setObjectName("label_4")
-        self.newPassword_lineEdit_2 = QtWidgets.QLineEdit(self.newPassword_frame_2)
+        self.newPassword_lineEdit_2 = QtWidgets.QLineEdit(
+            self.newPassword_frame_2)
         self.newPassword_lineEdit_2.setGeometry(QtCore.QRect(30, 130, 151, 21))
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -419,7 +451,8 @@ class Ui_MainWindow(object):
         self.newPassword_lineEdit_2.setAlignment(QtCore.Qt.AlignCenter)
         self.newPassword_lineEdit_2.setClearButtonEnabled(False)
         self.newPassword_lineEdit_2.setObjectName("lineEdit_2")
-        self.newPassword_lineEdit = QtWidgets.QLineEdit(self.newPassword_frame_2)
+        self.newPassword_lineEdit = QtWidgets.QLineEdit(
+            self.newPassword_frame_2)
         self.newPassword_lineEdit.setGeometry(QtCore.QRect(30, 100, 151, 21))
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -427,8 +460,10 @@ class Ui_MainWindow(object):
         self.newPassword_lineEdit.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.newPassword_lineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.newPassword_lineEdit.setObjectName("lineEdit")
-        self.newPassword_pushButton_5 = QtWidgets.QPushButton(self.newPassword_frame_2)
-        self.newPassword_pushButton_5.setGeometry(QtCore.QRect(30, 160, 151, 21))
+        self.newPassword_pushButton_5 = QtWidgets.QPushButton(
+            self.newPassword_frame_2)
+        self.newPassword_pushButton_5.setGeometry(
+            QtCore.QRect(30, 160, 151, 21))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.newPassword_pushButton_5.setFont(font)
@@ -439,41 +474,48 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.newPassword_statusbar)
 
         _translate = QtCore.QCoreApplication.translate
-        self.newPassword_label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
-        self.newPassword_pushButton_4.setText(_translate("MainWindow", "SALVAR"))
-        self.newPassword_label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">ADICIONAR CONTA</p></body></html>"))
+        self.newPassword_label_3.setText(_translate(
+            "MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.newPassword_pushButton_4.setText(
+            _translate("MainWindow", "SALVAR"))
+        self.newPassword_label_4.setText(_translate(
+            "MainWindow", "<html><head/><body><p align=\"center\">ADICIONAR CONTA</p></body></html>"))
         self.newPassword_lineEdit_2.setText(_translate("MainWindow", "SENHA"))
         self.newPassword_lineEdit.setText(_translate("MainWindow", "CONTA"))
-        self.newPassword_pushButton_5.setText(_translate("MainWindow", "GERAR SENHA"))
+        self.newPassword_pushButton_5.setText(
+            _translate("MainWindow", "GERAR SENHA"))
 
         self.frames["newPassword"] = self.newPassword_frame_2
 
+    # ----------------EVENTOS----------------
 
-    #----------------EVENTOS----------------
     def setupEvents(self):
-        #home
-        self.home_pushButton_2.clicked.connect(lambda: self.showFrame("cadastro"))
+        # home
+        self.home_pushButton_2.clicked.connect(
+            lambda: self.showFrame("cadastro"))
         self.home_pushButton.clicked.connect(lambda: self.showFrame("login"))
 
-        #cadastro
+        # cadastro
         self.cadastro_pushButton_4.clicked.connect(self.register)
 
-        #login
+        # login
         self.login_pushButton_4.clicked.connect(self.login)
 
-        #selecionar dispositivo
+        # selecionar dispositivo
         self.selectdrive_pushButton_4.clicked.connect(self.generateKey)
 
-        #verificar chave
+        # verificar chave
         self.getKey_pushButton_4.clicked.connect(self.verifyKey)
 
-        #chave gerada
-        self.keygenerated_pushButton_5.clicked.connect(lambda: self.showFrame("main"))
+        # chave gerada
+        self.keygenerated_pushButton_5.clicked.connect(
+            lambda: self.showFrame("main"))
 
-        #nova senha
-        self.main_pushButton_4.clicked.connect(lambda: self.showFrame("newPassword"))
+        # nova senha
+        self.main_pushButton_4.clicked.connect(
+            lambda: self.showFrame("newPassword"))
 
-    #----------------METODOS----------------
+    # ----------------METODOS----------------
     def register(self):
         email = self.cadastro_lineEdit.text()
         password = self.cadastro_lineEdit_2.text()
@@ -481,12 +523,13 @@ class Ui_MainWindow(object):
         response = self.api.register(email, password)
         if response == "Created with success":
             _translate = QtCore.QCoreApplication.translate
-            self.main_label_5.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">{}</span></p></body></html>".format(email)))
+            self.main_label_5.setText(_translate(
+                "MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">{}</span></p></body></html>".format(email)))
             self.showMessageDialog("Usuário criado com sucesso")
             self.showFrame("selectDrive")
         elif response == "User already exists":
-            self.showMessageDialog("Usuário já existe")
-    
+            self.showMessageDialogError("Usuário já existe")
+
     def login(self):
         email = self.login_lineEdit.text()
         password = self.login_lineEdit_2.text()
@@ -496,18 +539,18 @@ class Ui_MainWindow(object):
             self.api.token = response["token"]
             self.showFrame("getKey")
             _translate = QtCore.QCoreApplication.translate
-            self.main_label_5.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">{}</span></p></body></html>".format(email)))
+            self.main_label_5.setText(_translate(
+                "MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">{}</span></p></body></html>".format(email)))
         else:
-            self.showMessageDialog("Falha no login")
+            self.showMessageDialogError("Falha no login")
 
-    
     def updateDriveList(self):
         self.drives = psutil.disk_partitions()
         self.selectdrive_listWidget.clear()
         for drive in sorted(self.drives, key=lambda d: d.device):
             item = QListWidgetItem(drive.device)
             self.selectdrive_listWidget.addItem(item)
-    
+
     def generateKey(self):
         selected = self.selectdrive_listWidget.selectedItems()
         if len(selected) > 0:
@@ -516,7 +559,7 @@ class Ui_MainWindow(object):
             key = Fernet.generate_key()
             path = os.path.join(drive.mountpoint, 'pysword_secret')
 
-            #arquivo oculto
+            # arquivo oculto
             prefix = '.' if os.name != 'nt' else ''
             path = prefix + path
 
@@ -526,15 +569,18 @@ class Ui_MainWindow(object):
                         file.write(key.decode('utf-8'))
 
                     if os.name == 'nt':
-                        ret = ctypes.windll.kernel32.SetFileAttributesW(path, 0x02)
+                        ret = ctypes.windll.kernel32.SetFileAttributesW(
+                            path, 0x02)
                         if not ret:
                             raise ctypes.WinError()
                         self.showFrame("keyGenerated")
                 except Exception as e:
-                    self.showMessageDialog("Erro ao gravar chave no dispositivo")
+                    self.showMessageDialogError(
+                        "Erro ao gravar chave no dispositivo")
             else:
-                self.showMessageDialog("Já existe uma chave salva no dispositivo")
-    
+                self.showMessageDialogError(
+                    "Já existe uma chave salva no dispositivo")
+
     def verifyKey(self):
         drives = psutil.disk_partitions()
         for drive in drives:
@@ -549,14 +595,20 @@ class Ui_MainWindow(object):
                             self.key = key
                             self.showFrame("main")
                         except:
-                            self.showMessageDialog("Chave inválida")
+                            self.showMessageDialogError("Chave inválida")
 
     def showMessageDialog(self, message):
-        """Método helper para mostrar caixas de diálogo"""
         msg = QtWidgets.QMessageBox()
         msg.setText(message)
         msg.setWindowTitle("PySword")
         msg.exec_()
+
+    def showMessageDialogError(self, message):
+        msg = QtWidgets.QMessageBox()
+        msg.setText(message)
+        msg.setWindowTitle("ERRO")
+        msg.exec_()
+
 
 if __name__ == "__main__":
     import sys
