@@ -1,34 +1,60 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QPixmap
-from PyQt5.QtWidgets import QListWidgetItem
+from PyQt5.QtWidgets import QListWidgetItem, QTableWidgetItem
 import requests
 import psutil
 from cryptography.fernet import Fernet
 import os
 import ctypes
-
+import pickle
+import pyperclip
 
 class Api():
     def __init__(self, baseUrl):
         self.baseUrl = baseUrl
         self.token = ""
+        self.expectedStatus = [200, 400, 500]
 
     def register(self, email, password):
         url = self.baseUrl + '/auth/register'
         data = {'email': email, 'password': password}
         response = requests.post(url, json=data)
-        return response.json()
+        if response.status_code in self.expectedStatus:
+            return response.json()
+        raise Exception("Erro interno no servidor")
 
     def login(self, email, password):
         url = self.baseUrl + '/auth/login'
         data = {'email': email, 'password': password}
         response = requests.post(url, json=data)
-        return response.json()
-
+        if response.status_code in self.expectedStatus:
+            return response.json()
+        raise Exception("Erro interno no servidor")
+    
+    def savePassword(self, dataHash):
+        url = self.baseUrl + '/password'
+        data = {'hashs': [dataHash]}
+        headers = {'token': self.token}
+        response = requests.post(url, json=data, headers=headers)
+        if response.status_code in self.expectedStatus:
+            return response.json()
+        raise Exception("Erro interno no servidor")
+    
+    def getPasswords(self):
+        url = self.baseUrl + '/password'
+        headers = {'token': self.token}
+        response = requests.get(url=url, headers=headers)
+        if response.status_code in self.expectedStatus:
+            return response.json()
+        raise Exception("Erro interno no servidor")
 
 class Ui_MainWindow(object):
     def __init__(self):
-        self.api = Api("http://pysword.onrender.com")
+        #self.api = Api("http://pysword.onrender.com")
+        self.api = Api("http://152.67.61.229:5000")
+        #self.api = Api("http://localhost:5000")
+        self.passwordData = []
+        self.key = None
 
     def showFrame(self, frameName):
         for name, frame in self.frames.items():
@@ -397,8 +423,13 @@ class Ui_MainWindow(object):
         self.main_tableWidget = QtWidgets.QTableWidget(self.main_frame_2)
         self.main_tableWidget.setGeometry(QtCore.QRect(0, 30, 201, 201))
         self.main_tableWidget.setObjectName("tableWidget")
-        self.main_tableWidget.setColumnCount(0)
+        self.main_tableWidget.setColumnCount(2)
+        self.main_tableWidget.setHorizontalHeaderLabels(["Conta", "Senha"])
+        self.main_tableWidget.verticalHeader().hide()
         self.main_tableWidget.setRowCount(0)
+        self.main_tableWidget.horizontalScrollBar().hide()
+        self.main_tableWidget.horizontalScrollBar().setDisabled(True);
+        self.main_tableWidget.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn);
         MainWindow.setCentralWidget(self.centralwidget)
         self.main_statusbar = QtWidgets.QStatusBar(MainWindow)
         self.main_statusbar.setObjectName("statusbar")
@@ -508,12 +539,15 @@ class Ui_MainWindow(object):
         self.getKey_pushButton_4.clicked.connect(self.verifyKey)
 
         # chave gerada
-        self.keygenerated_pushButton_5.clicked.connect(
-            lambda: self.showFrame("main"))
+        self.keygenerated_pushButton_5.clicked.connect(self.openMain)
 
-        # nova senha
+        # senhas
         self.main_pushButton_4.clicked.connect(
             lambda: self.showFrame("newPassword"))
+        self.main_tableWidget.cellDoubleClicked.connect(self.copyPassword)
+        
+        # nova senha
+        self.newPassword_pushButton_4.clicked.connect(self.createPassword)
 
     # ----------------METODOS----------------
     def register(self):
@@ -543,7 +577,48 @@ class Ui_MainWindow(object):
                 "MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">{}</span></p></body></html>".format(email)))
         else:
             self.showMessageDialogError("Falha no login")
+    
+    def createPassword(self):
+        password = self.newPassword_lineEdit_2.text()
+        account = self.newPassword_lineEdit.text()
+        dataDict = {'password': password, 'account': account}
+        serialized = pickle.dumps(dataDict)
+        encrypted = Fernet(self.key).encrypt(serialized).decode('utf-8')
+        response = self.api.savePassword(encrypted)
+        if len(response) > 0:
+            if "hash" in response[0]:
+                self.openMain()
+    
+    def openMain(self):
+        self.showFrame("main")
+        self.getPasswords()
 
+    def getPasswords(self):
+        response = self.api.getPasswords()
+        rows = []
+        for entry in response:
+            encrypted = entry['hash']
+            serialized = Fernet(self.key).decrypt(encrypted.encode('utf-8'))
+            data = pickle.loads(serialized)
+            rows.append(data)
+        self.passwordData = rows
+        self.main_tableWidget.clearContents()
+        self.main_tableWidget.setRowCount(len(rows))
+        self.main_tableWidget.setColumnCount(2)
+        for index, row in enumerate(rows):
+            password = row["password"]
+            account = row["account"]
+            password_item = QTableWidgetItem("*****")
+            account_item = QTableWidgetItem(account)
+            password_item.setFlags(QtCore.Qt.ItemIsEnabled)
+            account_item.setFlags(QtCore.Qt.ItemIsEnabled)
+            self.main_tableWidget.setItem(index, 0, account_item)
+            self.main_tableWidget.setItem(index, 1, password_item)
+
+    def copyPassword(self, row, column):
+        pyperclip.copy(self.passwordData[row]['password'])
+        self.showMessageDialog("Senha copiada para a área de transferência")
+        
     def updateDriveList(self):
         self.drives = psutil.disk_partitions()
         self.selectdrive_listWidget.clear()
@@ -593,9 +668,11 @@ class Ui_MainWindow(object):
                         try:
                             f = Fernet(key)
                             self.key = key
-                            self.showFrame("main")
-                        except:
+                            self.openMain()
+                        except Exception as e:
                             self.showMessageDialogError("Chave inválida")
+        if self.key is None:
+            self.showMessageDialog("Nenhuma chave encontrada")
 
     def showMessageDialog(self, message):
         msg = QtWidgets.QMessageBox()
