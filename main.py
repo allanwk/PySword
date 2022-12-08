@@ -44,7 +44,11 @@ class Ui_MainWindow(object):
         self.setupHomeUI(MainWindow)
         self.setupLoginUI(MainWindow)
         self.setupCadastroUI(MainWindow)
-        self.setupKeyUI(MainWindow)
+        self.setupSelectDriveUI(MainWindow)
+        self.setupKeyGeneratedUI(MainWindow)
+        self.setupGetKeyUI(MainWindow)
+        self.setupMainUI(MainWindow)
+        self.setupNewPasswordUI(MainWindow)
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -254,23 +258,174 @@ class Ui_MainWindow(object):
 
         self.frames["key"] = self.key_frame_2
     
+    def setupGetKeyUI(self, MainWindow):
+        self.getKey_frame_2 = QtWidgets.QFrame(self.centralwidget)
+        self.getKey_frame_2.setEnabled(True)
+        self.getKey_frame_2.setGeometry(QtCore.QRect(10, 10, 201, 261))
+        self.getKey_frame_2.setAutoFillBackground(False)
+        self.getKey_frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.getKey_frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.getKey_frame_2.setObjectName("frame_2")
+        self.getKey_label_3 = QtWidgets.QLabel(self.getKey_frame_2)
+        self.getKey_label_3.setGeometry(QtCore.QRect(0, 0, 71, 21))
+        self.getKey_label_3.setObjectName("label_3")
+        self.getKey_pushButton_4 = QtWidgets.QPushButton(self.getKey_frame_2)
+        self.getKey_pushButton_4.setGeometry(QtCore.QRect(20, 230, 171, 31))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.getKey_pushButton_4.setFont(font)
+        self.getKey_pushButton_4.setObjectName("pushButton_4")
+        self.getKey_label_4 = QtWidgets.QLabel(self.getKey_frame_2)
+        self.getKey_label_4.setGeometry(QtCore.QRect(40, 30, 131, 31))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.getKey_label_4.setFont(font)
+        self.getKey_label_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.getKey_label_4.setObjectName("label_4")
+        self.getKey_label = QtWidgets.QLabel(self.getKey_frame_2)
+        self.getKey_label.setGeometry(QtCore.QRect(30, 60, 151, 161))
+        self.getKey_label.setObjectName("label")
+        self.getKey_label.raise_()
+        self.getKey_label_3.raise_()
+        self.getKey_pushButton_4.raise_()
+        self.getKey_label_4.raise_()
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.getKey_statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.getKey_statusbar.setObjectName("statusbar")
+
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.getKey_label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.getKey_pushButton_4.setText(_translate("MainWindow", "VERIFICAR CHAVE"))
+        self.getKey_label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">LOGIN</p></body></html>"))
+        self.getKey_label.setPixmap(QPixmap(os.path.join(os.path.dirname(__file__), 'assets/pendrive.png')))
+
+        self.frames["getKey"] = self.getKey_frame_2
+    
+    def setupMainUI(self, MainWindow):
+        self.main_frame_2 = QtWidgets.QFrame(self.centralwidget)
+        self.main_frame_2.setEnabled(True)
+        self.main_frame_2.setGeometry(QtCore.QRect(10, 10, 201, 271))
+        self.main_frame_2.setAutoFillBackground(False)
+        self.main_frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.main_frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.main_frame_2.setObjectName("frame_2")
+        self.main_label_3 = QtWidgets.QLabel(self.main_frame_2)
+        self.main_label_3.setGeometry(QtCore.QRect(0, 0, 71, 21))
+        self.main_label_3.setObjectName("label_3")
+        self.main_label_5 = QtWidgets.QLabel(self.main_frame_2)
+        self.main_label_5.setGeometry(QtCore.QRect(130, 0, 71, 21))
+        self.main_label_5.setObjectName("label_5")
+        self.main_pushButton_4 = QtWidgets.QPushButton(self.main_frame_2)
+        self.main_pushButton_4.setGeometry(QtCore.QRect(0, 240, 201, 31))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.main_pushButton_4.setFont(font)
+        self.main_pushButton_4.setObjectName("pushButton_4")
+        self.main_tableWidget = QtWidgets.QTableWidget(self.main_frame_2)
+        self.main_tableWidget.setGeometry(QtCore.QRect(0, 30, 201, 201))
+        self.main_tableWidget.setObjectName("tableWidget")
+        self.main_tableWidget.setColumnCount(0)
+        self.main_tableWidget.setRowCount(0)
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.main_statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.main_statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.main_statusbar)
+
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.main_label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.main_label_5.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">USUÁRIO</span></p></body></html>"))
+        self.main_pushButton_4.setText(_translate("MainWindow", "ADICIONAR CONTA"))
+
+        self.frames["main"] = self.main_frame_2
+    
+    def setupNewPasswordUI(self, MainWindow):
+        self.newPassword_frame_2 = QtWidgets.QFrame(self.centralwidget)
+        self.newPassword_frame_2.setEnabled(True)
+        self.newPassword_frame_2.setGeometry(QtCore.QRect(10, 10, 201, 261))
+        self.newPassword_frame_2.setAutoFillBackground(False)
+        self.newPassword_frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.newPassword_frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.newPassword_frame_2.setObjectName("frame_2")
+        self.newPassword_label_3 = QtWidgets.QLabel(self.newPassword_frame_2)
+        self.newPassword_label_3.setGeometry(QtCore.QRect(0, 0, 71, 21))
+        self.newPassword_label_3.setObjectName("label_3")
+        self.newPassword_pushButton_4 = QtWidgets.QPushButton(self.newPassword_frame_2)
+        self.newPassword_pushButton_4.setGeometry(QtCore.QRect(40, 230, 131, 31))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.newPassword_pushButton_4.setFont(font)
+        self.newPassword_pushButton_4.setObjectName("pushButton_4")
+        self.newPassword_label_4 = QtWidgets.QLabel(self.newPassword_frame_2)
+        self.newPassword_label_4.setGeometry(QtCore.QRect(0, 30, 211, 31))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.newPassword_label_4.setFont(font)
+        self.newPassword_label_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.newPassword_label_4.setObjectName("label_4")
+        self.newPassword_lineEdit_2 = QtWidgets.QLineEdit(self.newPassword_frame_2)
+        self.newPassword_lineEdit_2.setGeometry(QtCore.QRect(30, 130, 151, 21))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.newPassword_lineEdit_2.setFont(font)
+        self.newPassword_lineEdit_2.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.newPassword_lineEdit_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.newPassword_lineEdit_2.setClearButtonEnabled(False)
+        self.newPassword_lineEdit_2.setObjectName("lineEdit_2")
+        self.newPassword_lineEdit = QtWidgets.QLineEdit(self.newPassword_frame_2)
+        self.newPassword_lineEdit.setGeometry(QtCore.QRect(30, 100, 151, 21))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.newPassword_lineEdit.setFont(font)
+        self.newPassword_lineEdit.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.newPassword_lineEdit.setAlignment(QtCore.Qt.AlignCenter)
+        self.newPassword_lineEdit.setObjectName("lineEdit")
+        self.newPassword_pushButton_5 = QtWidgets.QPushButton(self.newPassword_frame_2)
+        self.newPassword_pushButton_5.setGeometry(QtCore.QRect(30, 160, 151, 21))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.newPassword_pushButton_5.setFont(font)
+        self.newPassword_pushButton_5.setObjectName("pushButton_5")
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.newPassword_statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.newPassword_statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.newPassword_statusbar)
+
+        _translate = QtCore.QCoreApplication.translate
+        self.newPassword_label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.newPassword_pushButton_4.setText(_translate("MainWindow", "SALVAR"))
+        self.newPassword_label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">ADICIONAR CONTA</p></body></html>"))
+        self.newPassword_lineEdit_2.setText(_translate("MainWindow", "SENHA"))
+        self.newPassword_lineEdit.setText(_translate("MainWindow", "CONTA"))
+        self.newPassword_pushButton_5.setText(_translate("MainWindow", "GERAR SENHA"))
+
+        self.frames["newPassword"] = self.newPassword_frame_2
+
     #----------------EVENTOS----------------
-
     def setupEvents(self):
-        self.setupHomeEvents()
-        self.setupRegisterEvents()
-        self.setupLoginEvents()
-
-    def setupHomeEvents(self):
+        #home
         self.home_pushButton_2.clicked.connect(lambda: self.showFrame("cadastro"))
         self.home_pushButton.clicked.connect(lambda: self.showFrame("login"))
-    
-    def setupRegisterEvents(self):
+
+        #cadastro
         self.cadastro_pushButton_4.clicked.connect(self.register)
-    
-    def setupLoginEvents(self):
+
+        #login
         self.login_pushButton_4.clicked.connect(self.login)
-    
+
+        #selecionar dispositivo
+        self.selectdrive_pushButton_4.clicked.connect(self.generateKey)
+
+        #verificar chave
+        self.getKey_pushButton_4.clicked.connect(self.verifyKey)
+
+        #chave gerada
+        self.keygenerated_pushButton_5.clicked.connect(lambda: self.showFrame("main"))
+
+        #nova senha
+        self.main_pushButton_4.clicked.connect(lambda: self.showFrame("newPassword"))
+
     #----------------METODOS----------------
     def register(self):
         email = self.cadastro_lineEdit.text()
@@ -279,7 +434,9 @@ class Ui_MainWindow(object):
         response = self.api.register(email, password)
         print(response)
         if response == "Created with success":
-            self.showFrame("key")
+            self.showFrame("selectDrive")
+            _translate = QtCore.QCoreApplication.translate
+            self.main_label_5.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">{}</span></p></body></html>".format(email)))
     
     def login(self):
         email = self.login_lineEdit.text()
@@ -288,7 +445,59 @@ class Ui_MainWindow(object):
         print(response)
         if "token" in response:
             self.api.token = response["token"]
-            self.showFrame("key")
+            self.showFrame("getKey")
+            _translate = QtCore.QCoreApplication.translate
+            self.main_label_5.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">{}</span></p></body></html>".format(email)))
+    
+    def updateDriveList(self):
+        self.drives = psutil.disk_partitions()
+        self.selectdrive_listWidget.clear()
+        for drive in sorted(self.drives, key=lambda d: d.device):
+            item = QListWidgetItem(drive.device)
+            self.selectdrive_listWidget.addItem(item)
+    
+    def generateKey(self):
+        selected = self.selectdrive_listWidget.selectedItems()
+        if len(selected) > 0:
+            driveName = selected[0].text()
+            drive = next(d for d in self.drives if d.device == driveName)
+            key = Fernet.generate_key()
+            path = os.path.join(drive.mountpoint, 'pysword_secret')
+
+            #arquivo oculto
+            prefix = '.' if os.name != 'nt' else ''
+            path = prefix + path
+
+            if not os.path.exists(path):
+                try:
+                    with open(path, 'w+') as file:
+                        file.write(key.decode('utf-8'))
+
+                    if os.name == 'nt':
+                        ret = ctypes.windll.kernel32.SetFileAttributesW(path, 0x02)
+                        if not ret:
+                            raise ctypes.WinError()
+                        self.showFrame("keyGenerated")
+                except Exception as e:
+                    print("Erro ao gravar chave no dispositivo: ", e)
+            else:
+                print("Já existe uma chave salva no dispositivo")
+    
+    def verifyKey(self):
+        drives = psutil.disk_partitions()
+        for drive in drives:
+            pathOptions = ['pysword_secret', '.pysowrd_secret']
+            for path in pathOptions:
+                fullPath = os.path.join(drive.mountpoint, path)
+                if os.path.exists(fullPath):
+                    with open(fullPath, 'r') as file:
+                        key = file.read().encode('utf-8')
+                        try:
+                            f = Fernet(key)
+                            self.key = key
+                            self.showFrame("main")
+                        except:
+                            print("Chave inválida")
 
 if __name__ == "__main__":
     import sys
