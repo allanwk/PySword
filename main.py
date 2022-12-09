@@ -573,11 +573,16 @@ class Ui_MainWindow(object):
         password_verify = self.cadastro_lineEdit_3.text()
         response = self.api.register(email, password)
         if response == "Created with success":
-            _translate = QtCore.QCoreApplication.translate
-            self.main_label_5.setText(_translate(
-                "MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">{}</span></p></body></html>".format(email)))
-            self.showMessageDialog("Usuário criado com sucesso")
-            self.showFrame("selectDrive")
+            response = self.api.login(email, password)
+            if "token" in response:
+                self.api.token = response["token"]
+                _translate = QtCore.QCoreApplication.translate
+                self.main_label_5.setText(_translate(
+                    "MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">{}</span></p></body></html>".format(email)))
+                self.showMessageDialog("Usuário criado com sucesso")
+                self.showFrame("selectDrive")
+            else:
+                self.showMessageDialogError("Erro ao cadastrar")
         elif response == "User already exists":
             self.showMessageDialogError("Usuário já existe")
 
