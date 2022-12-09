@@ -434,7 +434,7 @@ class Ui_MainWindow(object):
         self.main_tableWidget.setGeometry(QtCore.QRect(0, 30, 201, 201))
         self.main_tableWidget.setObjectName("tableWidget")
         self.main_tableWidget.setColumnCount(2)
-        self.main_tableWidget.setHorizontalHeaderLabels(["Conta", "Senha"])
+        self.main_tableWidget.setHorizontalHeaderLabels(["Site", "Email"])
         self.main_tableWidget.verticalHeader().hide()
         self.main_tableWidget.setRowCount(0)
         self.main_tableWidget.horizontalScrollBar().hide()
@@ -460,7 +460,7 @@ class Ui_MainWindow(object):
     def setupNewPasswordUI(self, MainWindow):
         self.newPassword_frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.newPassword_frame_2.setEnabled(True)
-        self.newPassword_frame_2.setGeometry(QtCore.QRect(10, 10, 201, 261))
+        self.newPassword_frame_2.setGeometry(QtCore.QRect(10, 10, 201, 271))
         self.newPassword_frame_2.setAutoFillBackground(False)
         self.newPassword_frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.newPassword_frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -468,10 +468,8 @@ class Ui_MainWindow(object):
         self.newPassword_label_3 = QtWidgets.QLabel(self.newPassword_frame_2)
         self.newPassword_label_3.setGeometry(QtCore.QRect(0, 0, 71, 21))
         self.newPassword_label_3.setObjectName("label_3")
-        self.newPassword_pushButton_4 = QtWidgets.QPushButton(
-            self.newPassword_frame_2)
-        self.newPassword_pushButton_4.setGeometry(
-            QtCore.QRect(40, 230, 131, 31))
+        self.newPassword_pushButton_4 = QtWidgets.QPushButton(self.newPassword_frame_2)
+        self.newPassword_pushButton_4.setGeometry(QtCore.QRect(30, 240, 151, 31))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.newPassword_pushButton_4.setFont(font)
@@ -481,51 +479,55 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.newPassword_label_4.setFont(font)
-        self.newPassword_label_4.setAlignment(QtCore.Qt.AlignCenter)
         self.newPassword_label_4.setObjectName("label_4")
-        self.newPassword_lineEdit_2 = QtWidgets.QLineEdit(
-            self.newPassword_frame_2)
-        self.newPassword_lineEdit_2.setGeometry(QtCore.QRect(30, 130, 151, 21))
+        self.newPassword_lineEdit_2 = QtWidgets.QLineEdit(self.newPassword_frame_2)
+        self.newPassword_lineEdit_2.setGeometry(QtCore.QRect(30, 190, 151, 21))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.newPassword_lineEdit_2.setFont(font)
         self.newPassword_lineEdit_2.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.newPassword_lineEdit_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.newPassword_lineEdit_2.setText("")
         self.newPassword_lineEdit_2.setClearButtonEnabled(False)
         self.newPassword_lineEdit_2.setObjectName("lineEdit_2")
-        self.newPassword_lineEdit = QtWidgets.QLineEdit(
-            self.newPassword_frame_2)
-        self.newPassword_lineEdit.setGeometry(QtCore.QRect(30, 100, 151, 21))
+        self.newPassword_lineEdit = QtWidgets.QLineEdit(self.newPassword_frame_2)
+        self.newPassword_lineEdit.setGeometry(QtCore.QRect(30, 140, 151, 21))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.newPassword_lineEdit.setFont(font)
         self.newPassword_lineEdit.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.newPassword_lineEdit.setAlignment(QtCore.Qt.AlignCenter)
+        self.newPassword_lineEdit.setText("")
         self.newPassword_lineEdit.setObjectName("lineEdit")
-        self.newPassword_pushButton_5 = QtWidgets.QPushButton(
-            self.newPassword_frame_2)
-        self.newPassword_pushButton_5.setGeometry(
-            QtCore.QRect(30, 160, 151, 21))
+        self.newPassword_pushButton_5 = QtWidgets.QPushButton(self.newPassword_frame_2)
+        self.newPassword_pushButton_5.setGeometry(QtCore.QRect(60, 210, 91, 21))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.newPassword_pushButton_5.setFont(font)
         self.newPassword_pushButton_5.setObjectName("pushButton_5")
+        self.newPassword_lineEdit_3 = QtWidgets.QLineEdit(self.newPassword_frame_2)
+        self.newPassword_lineEdit_3.setGeometry(QtCore.QRect(30, 90, 151, 20))
+        self.newPassword_lineEdit_3.setObjectName("lineEdit_3")
+        self.newPassword_label = QtWidgets.QLabel(self.newPassword_frame_2)
+        self.newPassword_label.setGeometry(QtCore.QRect(30, 70, 47, 13))
+        self.newPassword_label.setObjectName("label")
+        self.newPassword_label_2 = QtWidgets.QLabel(self.newPassword_frame_2)
+        self.newPassword_label_2.setGeometry(QtCore.QRect(30, 120, 47, 13))
+        self.newPassword_label_2.setObjectName("label_2")
+        self.newPassword_label_5 = QtWidgets.QLabel(self.newPassword_frame_2)
+        self.newPassword_label_5.setGeometry(QtCore.QRect(30, 170, 47, 13))
+        self.newPassword_label_5.setObjectName("label_5")
         MainWindow.setCentralWidget(self.centralwidget)
         self.newPassword_statusbar = QtWidgets.QStatusBar(MainWindow)
         self.newPassword_statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.newPassword_statusbar)
 
         _translate = QtCore.QCoreApplication.translate
-        self.newPassword_label_3.setText(_translate(
-            "MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
-        self.newPassword_pushButton_4.setText(
-            _translate("MainWindow", "SALVAR"))
-        self.newPassword_label_4.setText(_translate(
-            "MainWindow", "<html><head/><body><p align=\"center\">ADICIONAR CONTA</p></body></html>"))
-        self.newPassword_lineEdit_2.setText(_translate("MainWindow", "SENHA"))
-        self.newPassword_lineEdit.setText(_translate("MainWindow", "CONTA"))
-        self.newPassword_pushButton_5.setText(
-            _translate("MainWindow", "GERAR SENHA"))
+        self.newPassword_label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
+        self.newPassword_pushButton_4.setText(_translate("MainWindow", "SALVAR"))
+        self.newPassword_label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">ADICIONAR CONTA</p></body></html>"))
+        self.newPassword_pushButton_5.setText(_translate("MainWindow", "GERAR SENHA"))
+        self.newPassword_label.setText(_translate("MainWindow", "SITE"))
+        self.newPassword_label_2.setText(_translate("MainWindow", "EMAIL"))
+        self.newPassword_label_5.setText(_translate("MainWindow", "SENHA"))
 
         #self.frames["newPassword"] = self.newPassword_frame_2
         self.registerFrame("newPassword", self.newPassword_frame_2)
@@ -602,8 +604,9 @@ class Ui_MainWindow(object):
 
     def createPassword(self):
         password = self.newPassword_lineEdit_2.text()
-        account = self.newPassword_lineEdit.text()
-        dataDict = {'password': password, 'account': account}
+        site = self.newPassword_lineEdit_3.text()
+        email = self.newPassword_lineEdit.text()
+        dataDict = {'password': password, 'site': site, 'email': email}
         serialized = pickle.dumps(dataDict)
         encrypted = Fernet(self.key).encrypt(serialized).decode('utf-8')
         response = self.api.savePassword(encrypted)
@@ -624,14 +627,15 @@ class Ui_MainWindow(object):
         self.main_tableWidget.setRowCount(len(rows))
         self.main_tableWidget.setColumnCount(2)
         for index, row in enumerate(rows):
-            password = row["password"]
-            account = row["account"]
-            password_item = QTableWidgetItem("*****")
-            account_item = QTableWidgetItem(account)
-            password_item.setFlags(QtCore.Qt.ItemIsEnabled)
-            account_item.setFlags(QtCore.Qt.ItemIsEnabled)
-            self.main_tableWidget.setItem(index, 0, account_item)
-            self.main_tableWidget.setItem(index, 1, password_item)
+            if "password" in row and "site" in row and "email" in row:
+                email = row["email"]
+                site = row["site"]
+                site_item = QTableWidgetItem(site)
+                email_item = QTableWidgetItem(email)
+                site_item.setFlags(QtCore.Qt.ItemIsEnabled)
+                email_item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.main_tableWidget.setItem(index, 0, site_item)
+                self.main_tableWidget.setItem(index, 1, email_item)
 
     def copyPassword(self, row, column):
         self.stopClipBoardClear = True
