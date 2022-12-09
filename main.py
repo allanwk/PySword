@@ -571,7 +571,11 @@ class Ui_MainWindow(object):
         email = self.cadastro_lineEdit.text()
         password = self.cadastro_lineEdit_2.text()
         password_verify = self.cadastro_lineEdit_3.text()
-        response = self.api.register(email, password)
+        if password == password_verify:
+            response = self.api.register(email, password)
+        else:
+            self.showMessageDialog("Senhas inseridas não são iguais")
+            return
         if response == "Created with success":
             response = self.api.login(email, password)
             if "token" in response:
@@ -694,10 +698,10 @@ class Ui_MainWindow(object):
                             path, 0x02)
                         if not ret:
                             raise ctypes.WinError()
-                        self.showFrame("keyGenerated")
+                    self.key = key
+                    self.showFrame("keyGenerated")
                 except Exception as e:
-                    self.showMessageDialogError(
-                        "Erro ao gravar chave no dispositivo")
+                    self.showMessageDialogError("Erro ao gravar chave no dispositivo")
             else:
                 self.showMessageDialogError(
                     "Já existe uma chave salva no dispositivo")
