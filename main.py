@@ -9,6 +9,9 @@ import ctypes
 import pickle
 import pyperclip
 from threading import Timer
+import random
+import string
+
 
 class Api():
     def __init__(self, baseUrl):
@@ -31,7 +34,7 @@ class Api():
         if response.status_code in self.expectedStatus:
             return response.json()
         raise Exception("Erro interno no servidor")
-    
+
     def savePassword(self, dataHash):
         url = self.baseUrl + '/password'
         data = {'hashs': [dataHash]}
@@ -40,7 +43,7 @@ class Api():
         if response.status_code in self.expectedStatus:
             return response.json()
         raise Exception("Erro interno no servidor")
-    
+
     def getPasswords(self):
         url = self.baseUrl + '/password'
         headers = {'token': self.token}
@@ -48,6 +51,7 @@ class Api():
         if response.status_code in self.expectedStatus:
             return response.json()
         raise Exception("Erro interno no servidor")
+
 
 class Ui_MainWindow(object):
     def __init__(self):
@@ -66,8 +70,8 @@ class Ui_MainWindow(object):
                     frame["callback"]()
             else:
                 frame["frame"].hide()
-    
-    def registerFrame(self, name, frame, callback = None):
+
+    def registerFrame(self, name, frame, callback=None):
         self.frames[name] = {"frame": frame, "callback": callback}
 
     # ----------------UI----------------
@@ -434,8 +438,9 @@ class Ui_MainWindow(object):
         self.main_tableWidget.verticalHeader().hide()
         self.main_tableWidget.setRowCount(0)
         self.main_tableWidget.horizontalScrollBar().hide()
-        self.main_tableWidget.horizontalScrollBar().setDisabled(True);
-        self.main_tableWidget.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn);
+        self.main_tableWidget.horizontalScrollBar().setDisabled(True)
+        self.main_tableWidget.setHorizontalScrollBarPolicy(
+            QtCore.Qt.ScrollBarAlwaysOn)
         MainWindow.setCentralWidget(self.centralwidget)
         self.main_statusbar = QtWidgets.QStatusBar(MainWindow)
         self.main_statusbar.setObjectName("statusbar")
@@ -546,15 +551,20 @@ class Ui_MainWindow(object):
         self.getKey_pushButton_4.clicked.connect(self.verifyKey)
 
         # chave gerada
-        self.keygenerated_pushButton_5.clicked.connect(lambda: self.showFrame("main"))
+        self.keygenerated_pushButton_5.clicked.connect(
+            lambda: self.showFrame("main"))
 
         # senhas
         self.main_pushButton_4.clicked.connect(
             lambda: self.showFrame("newPassword"))
         self.main_tableWidget.cellDoubleClicked.connect(self.copyPassword)
-        
+
         # nova senha
         self.newPassword_pushButton_4.clicked.connect(self.createPassword)
+
+        # gerar senha "aleatória"
+        self.newPassword_pushButton_5.clicked.connect(
+            self.createRandomPassword)
 
     # ----------------METODOS----------------
     def register(self):
@@ -584,7 +594,7 @@ class Ui_MainWindow(object):
                 "MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">{}</span></p></body></html>".format(email)))
         else:
             self.showMessageDialogError("Falha no login")
-    
+
     def createPassword(self):
         password = self.newPassword_lineEdit_2.text()
         account = self.newPassword_lineEdit.text()
@@ -619,15 +629,15 @@ class Ui_MainWindow(object):
             self.main_tableWidget.setItem(index, 1, password_item)
 
     def copyPassword(self, row, column):
-        self.stopClipBoardClear = True;
+        self.stopClipBoardClear = True
         self.queueClearClipboard()
         pyperclip.copy(self.passwordData[row]['password'])
         self.showMessageDialog("Senha copiada para a área de transferência")
-    
+
     def queueClearClipboard(self):
         t = Timer(30, self.fillClipboard)
         t.start()
-    
+
     def fillClipboard(self, counter=0):
         if counter == 0:
             self.stopClipBoardClear = False
@@ -635,7 +645,7 @@ class Ui_MainWindow(object):
             pyperclip.copy(str(counter))
             t = Timer(0.25, lambda: self.fillClipboard(counter+1))
             t.start()
-        
+
     def updateDriveList(self):
         self.drives = psutil.disk_partitions()
         self.selectdrive_listWidget.clear()
@@ -702,6 +712,16 @@ class Ui_MainWindow(object):
         msg.setText(message)
         msg.setWindowTitle("ERRO")
         msg.exec_()
+
+    def createRandomPassword(self):
+        str1 = ''.join((random.choice(string.ascii_letters) for x in range(4)))
+        str1 += ''.join((random.choice(string.digits) for x in range(4)))
+
+        sam_list = list(str1)
+        random.shuffle(sam_list)
+        final_string = ''.join(sam_list)
+
+        self.newPassword_lineEdit_2.setText(final_string)
 
 
 if __name__ == "__main__":
