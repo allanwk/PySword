@@ -8,6 +8,7 @@ import os
 import ctypes
 import pickle
 import pyperclip
+from threading import Timer
 
 class Api():
     def __init__(self, baseUrl):
@@ -617,8 +618,16 @@ class Ui_MainWindow(object):
             self.main_tableWidget.setItem(index, 1, password_item)
 
     def copyPassword(self, row, column):
+        t = Timer(5, self.clearClipboard)
+        t.start()
         pyperclip.copy(self.passwordData[row]['password'])
         self.showMessageDialog("Senha copiada para a área de transferência")
+    
+    def clearClipboard(self, counter=0):
+        if(counter < 50):
+            pyperclip.copy(str(counter))
+            t = Timer(0.25, lambda: self.clearClipboard(counter+1))
+            t.start()
         
     def updateDriveList(self):
         self.drives = psutil.disk_partitions()
