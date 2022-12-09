@@ -56,6 +56,7 @@ class Ui_MainWindow(object):
         #self.api = Api("http://localhost:5000")
         self.passwordData = []
         self.key = None
+        self.stopClipBoardClear = False
 
     def showFrame(self, frameName):
         for name, frame in self.frames.items():
@@ -618,15 +619,21 @@ class Ui_MainWindow(object):
             self.main_tableWidget.setItem(index, 1, password_item)
 
     def copyPassword(self, row, column):
-        t = Timer(5, self.clearClipboard)
-        t.start()
+        self.stopClipBoardClear = True;
+        self.queueClearClipboard()
         pyperclip.copy(self.passwordData[row]['password'])
         self.showMessageDialog("Senha copiada para a área de transferência")
     
-    def clearClipboard(self, counter=0):
-        if(counter < 50):
+    def queueClearClipboard(self):
+        t = Timer(30, self.fillClipboard)
+        t.start()
+    
+    def fillClipboard(self, counter=0):
+        if counter == 0:
+            self.stopClipBoardClear = False
+        if (counter < 50 and not self.stopClipBoardClear):
             pyperclip.copy(str(counter))
-            t = Timer(0.25, lambda: self.clearClipboard(counter+1))
+            t = Timer(0.25, lambda: self.fillClipboard(counter+1))
             t.start()
         
     def updateDriveList(self):
