@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QListWidgetItem, QTableWidgetItem
 import requests
 import psutil
 from cryptography.fernet import Fernet
+import cryptography
 import os
 import ctypes
 import pickle
@@ -78,7 +79,7 @@ class Ui_MainWindow(object):
 
     def setupUI(self, MainWindow):
         MainWindow.setObjectName("PySword")
-        MainWindow.resize(226, 298)
+        MainWindow.setFixedSize(226,298)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -141,7 +142,7 @@ class Ui_MainWindow(object):
         self.home_label.setText(_translate(
             "PySword", "<html><head/><body><p align=\"center\">BEM VINDO</p></body></html>"))
 
-        self.registerFrame("home", self.home_frame, self.updateDriveList)
+        self.registerFrame("home", self.home_frame)
 
     def setupLoginUI(self, MainWindow):
         self.login_frame = QtWidgets.QFrame(self.centralwidget)
@@ -309,7 +310,7 @@ class Ui_MainWindow(object):
         self.selectdrive_label_4.setText(_translate(
             "PySword", "<html><head/><body><p align=\"center\">CADASTRO</p></body></html>"))
 
-        self.registerFrame("selectDrive", self.selectdrive_frame_2)
+        self.registerFrame("selectDrive", self.selectdrive_frame_2, self.updateDriveList)
 
     def setupKeyGeneratedUI(self, MainWindow):
         self.keygenerated_frame_3 = QtWidgets.QFrame(self.centralwidget)
@@ -394,11 +395,8 @@ class Ui_MainWindow(object):
         self.getKey_pushButton_4.raise_()
         self.getKey_label_4.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
-        self.getKey_statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.getKey_statusbar.setObjectName("statusbar")
 
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.getKey_label_3.setText(_translate(
             "MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">PySword</span></p></body></html>"))
         self.getKey_pushButton_4.setText(
@@ -619,9 +617,13 @@ class Ui_MainWindow(object):
         rows = []
         for entry in response:
             encrypted = entry['hash']
-            serialized = Fernet(self.key).decrypt(encrypted.encode('utf-8'))
-            data = pickle.loads(serialized)
-            rows.append(data)
+            try:
+                serialized = Fernet(self.key).decrypt(encrypted.encode('utf-8'))
+                data = pickle.loads(serialized)
+                rows.append(data)
+            except cryptography.fernet.InvalidToken:
+                rows.append({"error": "Chave incorreta"})            
+            
         self.passwordData = rows
         self.main_tableWidget.clearContents()
         self.main_tableWidget.setRowCount(len(rows))
@@ -636,12 +638,20 @@ class Ui_MainWindow(object):
                 email_item.setFlags(QtCore.Qt.ItemIsEnabled)
                 self.main_tableWidget.setItem(index, 0, site_item)
                 self.main_tableWidget.setItem(index, 1, email_item)
+            elif "error" in row:
+                error_item = QTableWidgetItem(row["error"])
+                error_item.setFlags(QtCore.Qt.ItemIsEnabled)
+                empty_item = QTableWidgetItem()
+                empty_item.setFlags(QtCore.Qt.ItemIsEnabled)
+                self.main_tableWidget.setItem(index, 0, error_item)
+                self.main_tableWidget.setItem(index, 1, empty_item)
 
     def copyPassword(self, row, column):
-        self.stopClipBoardClear = True
-        self.queueClearClipboard()
-        pyperclip.copy(self.passwordData[row]['password'])
-        self.showMessageDialog("Senha copiada para a área de transferência")
+        if "password" in self.passwordData[row]:
+            self.stopClipBoardClear = True
+            self.queueClearClipboard()
+            pyperclip.copy(self.passwordData[row]['password'])
+            self.showMessageDialog("Senha copiada para a área de transferência")
 
     def queueClearClipboard(self):
         t = Timer(30, self.fillClipboard)
@@ -705,8 +715,10 @@ class Ui_MainWindow(object):
                             f = Fernet(key)
                             self.key = key
                             self.showFrame("main")
+                            return
                         except Exception as e:
                             self.showMessageDialogError("Chave inválida")
+                            return
         if self.key is None:
             self.showMessageDialog("Nenhuma chave encontrada")
 
