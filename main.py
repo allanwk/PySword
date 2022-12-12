@@ -615,6 +615,9 @@ class Ui_MainWindow(object):
         if len(response) > 0:
             if "hash" in response[0]:
                 self.showFrame("main")
+                self.newPassword_lineEdit_2.setText('')
+                self.newPassword_lineEdit_3.setText('')
+                self.newPassword_lineEdit.setText('')
 
     def getPasswords(self):
         response = self.api.getPasswords()
